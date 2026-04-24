@@ -20,4 +20,12 @@ hdiutil create \
   -format UDZO \
   "$DMG_PATH"
 
+if [[ -n "${CODESIGN_IDENTITY:-}" ]]; then
+  codesign \
+    --force \
+    --timestamp \
+    --sign "$CODESIGN_IDENTITY" \
+    "$DMG_PATH"
+fi
+
 echo "Created $DMG_PATH"

@@ -23,4 +23,16 @@ if [[ ! -f "$APP_ICON" ]]; then
 fi
 cp "$APP_ICON" "$RESOURCES_DIR/AppIcon.icns"
 
+if [[ -n "${CODESIGN_IDENTITY:-}" ]]; then
+  codesign \
+    --force \
+    --deep \
+    --options runtime \
+    --timestamp \
+    --sign "$CODESIGN_IDENTITY" \
+    "$APP_DIR"
+else
+  codesign --force --deep --sign - "$APP_DIR"
+fi
+
 echo "Created $APP_DIR"

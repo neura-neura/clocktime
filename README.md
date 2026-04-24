@@ -41,6 +41,14 @@ swift build -c release
 ./scripts/package_dmg.sh
 ```
 
+For public distribution without Gatekeeper warnings, sign and notarize with an Apple Developer ID certificate:
+
+```sh
+export CODESIGN_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+export NOTARYTOOL_PROFILE="clocktime-notary"
+./scripts/notarize_release.sh
+```
+
 For development:
 
 ```sh
